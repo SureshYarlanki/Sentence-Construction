@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-// import Header from "./components/Header";
 import Header from "./components/Header";
 import Question from "./components/Question";
 import Results from "./components/Results";
@@ -16,27 +15,31 @@ function App() {
   const [totalTime, setTotalTime] = useState(0);
   const [questionStartTime, setQuestionStartTime] = useState(null);
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const res = await fetch("http://localhost:3001/data");
-        const json = await res.json();
-        console.log("Fetched JSON:", json);
+useEffect(() => {
+  const fetchQuestions = async () => {
+    try {
+      const res = await fetch(
+        "https://run.mocky.io/v3/66c99099-48a6-43c0-99bd-71f9bcb0f6fc"
+      );
+      const json = await res.json();
+      console.log("Fetched JSON:", json.data.questions);
 
-        if (json.questions) {
-          setQuestions(json.questions);
-          setStartTime(new Date());
-          setQuestionStartTime(new Date());
-        } else {
-          console.error("Questions data not found");
-        }
-      } catch (error) {
-        console.error("Error fetching questions:", error);
+      if (Array.isArray(json.data?.questions)) {
+        setQuestions(json.data.questions);
+        setStartTime(new Date());
+        setQuestionStartTime(new Date());
+      } else {
+        console.error("Questions data not found");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
 
-    fetchQuestions();
-  }, []);
+  fetchQuestions();
+}, []);
+
+
   const handleConfirmQuit = () => {
     // Clear all quiz-related data
     localStorage.removeItem("quizProgress");
