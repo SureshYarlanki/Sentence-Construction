@@ -77,12 +77,12 @@ export default function Results({ questions, answers, score, totalTime }) {
               >
                 Return Home
               </Link>
-              <button
+{/*               <button
                 onClick={() => window.location.reload()}
                 className="inline-block px-6 py-2 bg-white border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors"
               >
                 Retake Test
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
